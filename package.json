@@ -1,0 +1,56 @@
+{
+  "name": "osx-webcam-overlay",
+  "version": "1.0.0",
+  "description": ".",
+  "main": "index.js",
+  "private": true,
+  "preferGlobal": true,
+  "bin": {
+    "webcam-overlay": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "watch": "nodemon index.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "webcam",
+    "mac",
+    "osx",
+    "overlay",
+    "webcam overlay",
+    "camtwist",
+    "cam twist",
+    "whiteboard",
+    "subtitles",
+    "zoom",
+    "skype",
+    "google hangouts"
+  ],
+  "author": "Robert Reed",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.18.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "command-line-args": "^5.1.1",
+    "command-line-usage": "^6.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "find-free-port": "^2.0.0",
+    "fs-extra": "^8.1.0",
+    "helmet": "^3.21.2",
+    "http-errors": "^1.7.3",
+    "jimp": "^0.8.5",
+    "morgan": "^1.9.1",
+    "open": "^7.0.0",
+    "prompts": "^2.3.0",
+    "shelljs": "^0.8.3"
+  }
+}
