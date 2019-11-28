@@ -1,7 +1,4 @@
 const chalk = require('chalk');
-const qs = require('querystring');
-const nodeFetch = require('node-fetch');
-const createError = require('http-errors');
 
 const u = module.exports = {};
 
