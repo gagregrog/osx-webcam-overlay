@@ -4,7 +4,7 @@ const fp = require('find-free-port');
 const u = require('./util');
 
 const validatePort = port => (
-  (!port.replace(/\d\d\d\d/, '').length) && (port[0] !== '0')
+  (!port.replace(/\d{4}/, '').length) && (port[0] !== '0')
     ? true
     : 'Please enter a value between 1000 and 9999.'
 );
