@@ -9,8 +9,8 @@
     "webcam-overlay": "./index.js"
   },
   "scripts": {
-    "start": "node index.js",
-    "watch": "nodemon index.js"
+    "start": "nodemon index.js",
+    "server": "nodemon dev.js"
   },
   "keywords": [
     "node",
@@ -39,6 +39,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
+    "datauri": "^2.0.0",
     "death": "^1.1.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -46,6 +47,7 @@
     "fs-extra": "^8.1.0",
     "helmet": "^3.21.2",
     "http-errors": "^1.7.3",
+    "mime": "^2.4.4",
     "morgan": "^1.9.1",
     "multer": "^1.4.2",
     "open": "^7.0.0",
