@@ -3,6 +3,7 @@ const prompts = require('prompts');
 const u = require('./util');
 const c = require('./constants');
 const shell = require('./shell');
+const handleSetup = require('./handleSetup');
 
 const handleInstallPrompt = async () => {
   u.warn('In order to use OSX Webcam Overlay, you must first install CamTwist.');
@@ -89,7 +90,7 @@ const handleInstallCompleted = async () => {
 
   if (!isInstalled) {
     u.err('Hmm. CamTwist does not seem to be installed properly.');
-    u.info(`Please ensure that CamTwist is installed in ${c.camTwistAppPath} and then try again.`);
+    u.log(`Please ensure that CamTwist is installed in ${c.camTwistAppPath} and then try again.`);
     process.exit();
   }
 };
@@ -129,6 +130,7 @@ const handleCamTwist = async () => {
     await handleInstallCamTwist();
   }
 
+  await handleSetup();
   await handleOpenCamTwist();
   shell.registerCleanup();
 };

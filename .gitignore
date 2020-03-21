@@ -106,3 +106,5 @@ typings/
 # End of https://www.gitignore.io/api/node,visualstudiocode
 
 sandbox.js
+src/plugin/resolution.json
+src/plugin/installed.json

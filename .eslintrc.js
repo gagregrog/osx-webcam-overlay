@@ -5,5 +5,6 @@ module.exports = {
         "no-console": 0,
         "no-underscore-dangle": 0,
         "consistent-return": 0,
+        "max-len": 0,
     },
 };
