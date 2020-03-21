@@ -64,7 +64,7 @@ shell.saveImage = async (base64EncodedImage) => {
   return fs.writeFile(c.imagePath, image, 'base64');
 };
 shell.eraseImage = async () => shell.saveImage(c.emptyImage);
-shell.ensureImageDir = async () => fs.ensureDir(c.imageDir);
+shell.ensureImageDir = async () => fs.ensureDir(c.imageDir.slice(1, -1));
 shell.imagePathExists = async () => fs.pathExists(c.imagePath);
 
 shell.copy = (from, to) => shelljs.exec(`cp ${from} ${to}`);
@@ -73,8 +73,8 @@ shell.copy = (from, to) => shelljs.exec(`cp ${from} ${to}`);
 shell.resolutionIsSet = async () => fs.pathExists(c.resolutionPath);
 shell.savedSetupIsSet = async () => fs.pathExists(c.camTwistConfigDestinationPath);
 shell.pluginIsSet = async () => fs.pathExists(c.pluginDestinationPath);
-shell.ensureEffectsPath = async () => fs.ensureDir(c.camTwistEffectsDir);
-shell.ensureSavedSetupPath = async () => fs.ensureDir(c.camTwistSavedSetupsDir);
+shell.ensureEffectsPath = async () => fs.ensureDir(c.camTwistEffectsDir.slice(1, -1));
+shell.ensureSavedSetupPath = async () => fs.ensureDir(c.camTwistSavedSetupsDir.slice(1, -1));
 shell.copyPlugin = () => shell.copy(c.pluginSourcePath, c.pluginDestinationPath);
 shell.copySavedSetup = async () => shell.copy(c.camTwistConfigSourcePath, c.camTwistConfigDestinationPath);
 shell.pluginIsLoaded = async () => !shelljs.exec('defaults read com.allocinit.CamTwist autoload 2> /dev/null | grep osx-webcam-overlays > /dev/null').code;

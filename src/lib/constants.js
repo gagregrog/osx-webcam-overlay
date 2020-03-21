@@ -34,5 +34,5 @@ c.resHD = '"{1280, 720}"';
 c.resSD = '"{640, 480}"';
 
 c.orgName = `org.rumorlabs.${c.effectName}`;
-c.imageDir = `"${c.applicationSupport}/${c.orgName}`;
-c.imagePath = `${c.imageDir}/image.png`;
+c.imageDir = `"${c.applicationSupport}/${c.orgName}"`;
+c.imagePath = `${c.imageDir.slice(1, -1)}/image.png`;
