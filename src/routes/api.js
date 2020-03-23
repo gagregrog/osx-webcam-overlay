@@ -19,15 +19,15 @@ apiRouter.get('/settings', async (req, res) => {
 });
 
 apiRouter.put('/settings', async (req, res) => {
-  const { body: newSettings } = req;
+  const { body: { settings } } = req;
 
-  if (!Object.keys(newSettings).length) {
+  if (!Object.keys(settings).length) {
     return res.sendStatus(400);
   }
 
-  const settings = await shell.setSettings(newSettings);
+  const updatedSettings = await shell.setSettings(settings);
 
-  res.json(settings);
+  res.json(updatedSettings);
 });
 
 apiRouter.delete('/settings/:setting', async (req, res) => {
