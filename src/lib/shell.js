@@ -59,19 +59,38 @@ shell.exitCamTwistIfOpen = async (message = 'Exiting CamTwist...') => {
 };
 
 // Image helpers
-shell.saveImage = async (base64EncodedImage) => {
-  const image = base64EncodedImage.replace(/^data:image\/png;base64,/, '');
-  return fs.writeFile(c.imagePath, image, 'base64');
-};
+shell.saveImage = async base64EncodedImage => fs.writeFile(c.imagePath, base64EncodedImage, 'base64');
 shell.eraseImage = async () => shell.saveImage(c.emptyImage);
 shell.ensureImageDir = async () => fs.ensureDir(c.imageDir.slice(1, -1));
 shell.imagePathExists = async () => fs.pathExists(c.imagePath);
-shell.getResolution = async () => fs.readJSON(c.resolutionPath);
+shell.getSettings = async () => fs.readJSON(c.settingsPath);
+shell.writeSettings = async settings => fs.writeJSON(c.settingsPath, settings, { spaces: 2 });
+shell.setSettings = async (newSettings) => {
+  const settings = await shell.getSettings();
+  Object.entries(newSettings).forEach(([key, val]) => {
+    if (key === 'resolution') return;
+
+    settings[key] = val;
+  });
+
+  await shell.writeSettings(settings);
+
+  return settings;
+};
+
+shell.deleteSetting = async (key) => {
+  const settings = await shell.getSettings();
+  if (key !== 'resolution') delete settings[key];
+
+  await shell.writeSettings(settings);
+
+  return settings;
+};
 
 shell.copy = (from, to) => shelljs.exec(`cp ${from} ${to}`);
 
 // Plugin helpers
-shell.resolutionIsSet = async () => fs.pathExists(c.resolutionPath);
+shell.resolutionIsSet = async () => fs.pathExists(c.settingsPath);
 shell.savedSetupIsSet = async () => fs.pathExists(c.camTwistConfigDestinationPath);
 shell.pluginIsSet = async () => fs.pathExists(c.pluginDestinationPath);
 shell.ensureEffectsPath = async () => fs.ensureDir(c.camTwistEffectsDir.slice(1, -1));
@@ -91,7 +110,7 @@ shell.setVideoMode = async (videoSize) => {
   const resolution = { width, height };
   handleDefault(`videoSize ${videoSize}`);
 
-  return fs.writeJson(c.resolutionPath, resolution, { spaces: 2 });
+  return fs.writeJson(c.settingsPath, { resolution }, { spaces: 2 });
 };
 
 // Install checks

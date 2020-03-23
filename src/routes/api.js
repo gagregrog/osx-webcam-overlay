@@ -1,6 +1,6 @@
 const mime = require('mime');
 const multer = require('multer');
-const DataUri = require('datauri');
+const imageDataURI = require('image-data-uri');
 
 const { Router } = require('express');
 
@@ -12,10 +12,30 @@ const fileUpload = multer({ storage }).single('image');
 
 const apiRouter = module.exports = new Router();
 
-apiRouter.get('/image/resolution', async (req, res) => {
-  const resolution = await shell.getResolution();
+apiRouter.get('/settings', async (req, res) => {
+  const settings = await shell.getSettings();
 
-  res.json(resolution);
+  res.json(settings);
+});
+
+apiRouter.put('/settings', async (req, res) => {
+  const { body: newSettings } = req;
+
+  if (!Object.keys(newSettings).length) {
+    return res.sendStatus(400);
+  }
+
+  const settings = await shell.setSettings(newSettings);
+
+  res.json(settings);
+});
+
+apiRouter.delete('/settings/:setting', async (req, res) => {
+  const { params: { setting } } = req;
+
+  const settings = await shell.deleteSetting(setting);
+
+  res.json(settings);
 });
 
 apiRouter.post('/image', async (req, res) => {
@@ -23,35 +43,32 @@ apiRouter.post('/image', async (req, res) => {
 
   if (!image) {
     image = await new Promise((resolve) => {
-      fileUpload(req, res, (err) => {
-        if (err) {
+      fileUpload(req, res, async (err) => {
+        if (err || !req.file) {
           u.err('File upload error');
-          console.log(err);
+          console.log(err || 'no file uploaded');
+
           return resolve(null);
         }
 
         const { buffer, mimetype } = req.file;
-        const extension = `.${mime.getExtension(mimetype)}`;
+        const extension = mime.getExtension(mimetype).toUpperCase();
+        const dataUri = await imageDataURI.encode(buffer, extension);
 
-        if (extension !== '.png') {
-          u.err('Only .png is supported');
-          return resolve(null);
-        }
-
-        const dataUri = new DataUri();
-        dataUri.format(extension, buffer);
-        resolve(dataUri.content);
+        resolve(dataUri);
       });
     });
   }
 
   if (!image) return res.sendStatus(400);
 
+  ({ dataBase64: image } = imageDataURI.decode(image));
+
   res.sendStatus(204);
   shell.saveImage(image).catch(console.log);
 });
 
 apiRouter.delete('/image', (req, res) => {
-  shell.eraseImage().catch(console.log);
   res.sendStatus(204);
+  shell.eraseImage().catch(console.log);
 });

@@ -27,7 +27,7 @@ c.pluginDestinationPath = `${c.camTwistEffectsDir.slice(0, -1)}/${c.pluginName}"
 c.pluginSourcePath = `${c.pluginSrcDir}/${c.pluginName}`;
 c.camTwistConfigSourcePath = `${c.pluginSrcDir}/${c.xmlConfig}`;
 c.camTwistConfigDestinationPath = `${c.camTwistSavedSetupsDir.slice(0, -1)}/${c.xmlConfig}"`;
-c.resolutionPath = `${c.pluginSrcDir}/resolution.json`;
+c.settingsPath = `${c.pluginSrcDir}/settings.json`;
 c.markInstalledPath = `${c.pluginSrcDir}/installed.json`;
 c.defaultsCom = 'com.allocinit.CamTwist';
 c.resHD = '"{1280, 720}"';
@@ -35,4 +35,4 @@ c.resSD = '"{640, 480}"';
 
 c.orgName = `org.rumorlabs.${c.effectName}`;
 c.imageDir = `"${c.applicationSupport}/${c.orgName}"`;
-c.imagePath = `${c.imageDir.slice(1, -1)}/image.png`;
+c.imagePath = `${c.imageDir.slice(1, -1)}/image`;

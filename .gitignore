@@ -107,4 +107,5 @@ typings/
 
 sandbox.js
 src/plugin/resolution.json
+src/plugin/settings.json
 src/plugin/installed.json
